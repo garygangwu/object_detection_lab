@@ -9,7 +9,11 @@ Leverage existing tensor flow pre-trained models to detect objects in images and
 
 ## Usage
 
-`python image|video file_to_process`
+Run `python object_detection.py --help` for available options
+
+example: 
+* `python object_detection.py --type image --image_file examples/dog.jpg`
+* `python object_detection.py --type video --video_file examples/driving.mp4`
 
 ## Examples of results
 
