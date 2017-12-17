@@ -8,7 +8,12 @@ import sys
 from moviepy.editor import VideoFileClip
 import matplotlib.image as mpimg
 
-#plt.style.use('ggplot')
+flags = tf.app.flags
+FLAGS = flags.FLAGS
+
+flags.DEFINE_string('type', 'image', "process image or video")
+flags.DEFINE_string('image_input', './examples/dog.jpg', "Default input file")
+flags.DEFINE_string('video_input', './examples/driving.mp4', "Default input file")
 
 # Frozen inference graph files. NOTE: change the path to where you saved the models.
 SSD_GRAPH_FILE = 'ssd_mobilenet_v1_coco_2017_11_17/frozen_inference_graph.pb'
@@ -95,9 +100,9 @@ def load_graph(graph_file):
   return graph
 
 
-#detection_graph = load_graph(SSD_GRAPH_FILE)
+detection_graph = load_graph(SSD_GRAPH_FILE)
 #detection_graph = load_graph(RFCN_GRAPH_FILE)
-detection_graph = load_graph(FASTER_RCNN_GRAPH_FILE)
+#detection_graph = load_graph(FASTER_RCNN_GRAPH_FILE)
 
 # The input placeholder for the image.
 # `get_tensor_by_name` returns the Tensor with the associated name in the Graph.
@@ -156,21 +161,15 @@ def process_video(file_name):
   new_clip.write_videofile('result.mp4')
 
 
-def main(argv):
-  if len(argv) >= 2 and argv[1].lower() == 'image':
-    if len(argv) >= 3:
-      file_name = argv[2]
-    else:
-      file_name = './examples/dog.jpg'
-    process_image(file_name)
-  else:
-    if len(argv) >= 3:
-      file_name = argv[2]
-    else:
-      file_name = './driving.mp4'
-    process_video(file_name)
+def main():
+  if FLAGS_type == 'image':
+    process_image(FLAGS_image_file)
+  elif FLAGS_type == 'video':
+    process_video(FLAGS_video_file)
+  elif
+    print('Bad input: check the usage')
 
 if __name__ == "__main__":
-  main(sys.argv)
+  main()
 
 
