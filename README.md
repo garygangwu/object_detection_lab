@@ -13,17 +13,17 @@ Leverage existing tensor flow pre-trained models to detect objects in images and
 
 ## Examples of results
 
-### SSD (Single Shot MultiBox Detecto)
+### SSD (Single Shot MultiBox Detection) based on MobileNet
 |Original Image|Result|
 |:---:|:---:|
 |<img src="examples/person.jpg"/>|<img src="output/person.png"/>|
 
-### R-FCN
+### R-FCN based on ResNet-101
 |Original Image|Result|
 |:---:|:---:|
 |<img src="examples/dog.jpg"/>|<img src="output/dog.png"/>|
 
-### Faster R-CNN
+### Faster R-CNN based on Inception-ResNet-v2
 |Original Image|Result|
 |:---:|:---:|
 |<img src="examples/giraffe.jpg"/>|<img src="output/giraffe.png"/>|
