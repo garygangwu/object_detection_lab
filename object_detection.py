@@ -6,6 +6,7 @@ import time
 from scipy.stats import norm
 import sys
 from moviepy.editor import VideoFileClip
+import matplotlib.image as mpimg
 
 #plt.style.use('ggplot')
 
@@ -76,7 +77,7 @@ def draw_boxes(image, boxes, classes, scores, thickness=4):
       text_top = 0
     font = ImageFont.truetype('arial.ttf', size=15)
     class_label = "{}, {:.0f}%".format(class_to_label_map[class_id], score*100)
-    draw.text((left, text_top), class_label, fill=color, font=font)
+    draw.text((left, text_top), class_label, fill=COLOR_LIST[0], font=font)
     draw.line(
       [(left, top), (left, bot), (right, bot), (right, top), (left, top)],
       width=thickness, fill=color
@@ -140,9 +141,12 @@ def process_image(file_name):
   image = Image.open(file_name)
   sess = tf.Session(graph=detection_graph)
   image = image_obj_detection(sess, image)
+  output_file_name = './output/' + file_name.split('/')[-1].split('.')[0] + '.png'
+  mpimg.imsave(output_file_name, image)
+  print('Saved file to {}'.format(output_file_name))
   plt.imshow(image)
   plt.show()
-
+  
 
 def process_video(file_name):
   clip = VideoFileClip('driving.mp4')
@@ -157,7 +161,7 @@ def main(argv):
     if len(argv) >= 3:
       file_name = argv[2]
     else:
-      file_name = './assets/sample1.jpg'
+      file_name = './examples/dog.jpg'
     process_image(file_name)
   else:
     if len(argv) >= 3:
