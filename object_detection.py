@@ -12,8 +12,9 @@ flags = tf.app.flags
 FLAGS = flags.FLAGS
 
 flags.DEFINE_string('type', 'image', "process image or video")
-flags.DEFINE_string('image_input', './examples/dog.jpg', "Default input file")
-flags.DEFINE_string('video_input', './examples/driving.mp4', "Default input file")
+flags.DEFINE_string('image_file', './examples/dog.jpg', "Default input file")
+flags.DEFINE_string('video_file', './examples/driving.mp4', "Default input file")
+flags.DEFINE_float('confidence_cutoff', 0.55, 'confidence cutoff (0, 1)')
 
 # Frozen inference graph files. NOTE: change the path to where you saved the models.
 SSD_GRAPH_FILE = 'ssd_mobilenet_v1_coco_2017_11_17/frozen_inference_graph.pb'
@@ -128,7 +129,7 @@ def image_obj_detection(sess, image):
   scores = np.squeeze(scores)
   classes = np.squeeze(classes)
 
-  confidence_cutoff = 0.55
+  confidence_cutoff = FLAGS.confidence_cutoff
   # Filter boxes with a confidence score less than `confidence_cutoff`
   boxes, scores, classes = filter_boxes(confidence_cutoff, boxes, scores, classes)
 
@@ -154,19 +155,21 @@ def process_image(file_name):
   
 
 def process_video(file_name):
-  clip = VideoFileClip('driving.mp4')
+  clip = VideoFileClip(file_name)
   sess = tf.Session(graph=detection_graph)
   pipeline = lambda img: image_obj_detection(sess, Image.fromarray(img))
   new_clip = clip.fl_image(pipeline)
-  new_clip.write_videofile('result.mp4')
+  output_file_name = './output/' + file_name.split('/')[-1].split('.')[0] + '.mp4'
+  new_clip.write_videofile(output_file_name)
+  print('Saved file to {}'.format(output_file_name))
 
 
 def main():
-  if FLAGS_type == 'image':
-    process_image(FLAGS_image_file)
-  elif FLAGS_type == 'video':
-    process_video(FLAGS_video_file)
-  elif
+  if FLAGS.type == 'image':
+    process_image(FLAGS.image_file)
+  elif FLAGS.type == 'video':
+    process_video(FLAGS.video_file)
+  else:
     print('Bad input: check the usage')
 
 if __name__ == "__main__":
