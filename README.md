@@ -1,6 +1,6 @@
-# Object_detection
+# Object Detection
 
-Leverage existing SSD models to detect objects in images and videos
+Leverage existing tensor flow pre-trained models to detect objects in images and videos
 
 ## Instruction
 
@@ -10,3 +10,21 @@ Leverage existing SSD models to detect objects in images and videos
 ## Usage
 
 `python image|video file_to_process`
+
+## Examples of results
+
+### SSD (Single Shot MultiBox Detecto)
+|Original Image|Result|
+|:---:|:---:|
+|<img src="examples/person.jpg"/>|<img src="output/person.png"/>|
+
+### R-FCN
+|Original Image|Result|
+|:---:|:---:|
+|<img src="examples/dog.jpg"/>|<img src="output/dog.png"/>|
+
+### Faster R-CNN
+|Original Image|Result|
+|:---:|:---:|
+|<img src="examples/giraffe.jpg"/>|<img src="output/giraffe.png"/>|
+|<img src="examples/horses.jpg"/>|<img src="output/horses.png"/>|
