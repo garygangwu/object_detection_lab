@@ -6,7 +6,7 @@ Leverage existing tensor flow pre-trained models to detect objects in images and
 |---|
 |[Object detection under various weather conditions during driving](https://youtu.be/q2LmRzr0GHk)|
 
-Another example to detect objects in an [indoor office space](https://vimeo.com/247742070)|
+Another example to detect objects in an [indoor office space](https://vimeo.com/247742070)
 
 ## Instruction
 
